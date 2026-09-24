@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مراجعة تفاعلية فاخرة - الشبكات المتقدمة</title>
+    <!-- خط تجوال من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f0c20;
+            --card-bg: rgba(30, 26, 54, 0.7);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-purple: #6c5ce7;
+            --accent-pink: #d63031;
+            --accent-yellow: #fdcb6e;
+            --accent-green: #00b894;
+            --text-main: #ffffff;
+            --text-muted: #a29bfe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(214, 48, 49, 0.1) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Area */
+        header {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .badge-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .badge-btn:hover, .badge-btn.active {
+            background: var(--accent-purple);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(108, 92, 231, 0.5);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-yellow);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* Notice Box */
+        .notice-box {
+            background: rgba(253, 203, 110, 0.1);
+            border: 1px solid rgba(253, 203, 110, 0.3);
+            border-radius: 12px;
+            padding: 12px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #ffeaa7;
+            font-size: 0.9rem;
+        }
+
+        /* Main Grid Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Quiz Area */
+        .quiz-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--accent-yellow);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .question-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--card-border);
+            padding: 16px 20px;
+            border-radius: 10px;
+            color: #fff;
+            text-align: right;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(108, 92, 231, 0.2);
+            border-color: var(--accent-purple);
+        }
+
+        .option-btn.correct {
+            background: rgba(0, 184, 148, 0.2);
+            border-color: var(--accent-green);
+            color: #55efc4;
+        }
+
+        .option-btn.wrong {
+            background: rgba(214, 48, 49, 0.2);
+            border-color: var(--accent-pink);
+            color: #ff7675;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--card-border);
+            padding-top: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-action {
+            background: var(--accent-purple);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .btn-action:hover {
+            opacity: 0.9;
+        }
+
+        /* Sidebar Control Panel */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-box h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+        }
+
+        .quick-nav {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-left: 5px;
+        }
+
+        .nav-num {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .nav-num.answered {
+            background: rgba(0, 184, 148, 0.2);
+            border-color: var(--accent-green);
+            color: #55efc4;
+        }
+
+        .nav-num.active {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 8px var(--accent-purple);
+        }
+
+        /* Summary Cards Section */
+        .summary-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .summary-card h4 {
+            color: var(--accent-yellow);
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .summary-card p {
+            color: #b2bec3;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header>
+        <h1>مراجعة تفاعلية فاخرة — الشبكات المتقدمة</h1>
+        <p>مدرسة الشحانية الإعدادية الثانوية للبنين | العام الدراسي 2025-2026 | الصف العاشر</p>
+        <div class="nav-badges">
+            <button class="badge-btn active">Snap Quiz Feed</button>
+            <button class="badge-btn">TikTok Cards</button>
+            <button class="badge-btn">Kahoot + Quizizz</button>
+            <button class="badge-btn">XP & Badges</button>
+        </div>
+    </header>
+
+    <!-- Notice Box -->
+    <div class="notice-box">
+        <span>⚠️</span>
+        <div><strong>ملاحظة مهمة:</strong> هذه الصفحة التفاعلية وسيلة للمراجعة والتدريب فقط، ولا تُغني عن مصدر التعلم الرئيسي: الكتاب المدرسي.</div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-value" id="xp-val">0</div>
+            <div class="stat-label">XP</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="correct-val">0</div>
+            <div class="stat-label">إجابات صحيحة</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="ratio-val">0%</div>
+            <div class="stat-label">النسبة</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="badge-val">0</div>
+            <div class="stat-label">شارات</div>
+        </div>
+    </div>
+
+    <!-- Main Content Layout -->
+    <div class="main-layout">
+        <!-- Quiz Area -->
+        <div class="quiz-card">
+            <div>
+                <div class="question-header">
+                    <span id="category-tag">شبكات الحاسوب</span>
+                    <span id="question-count">سؤال 1 من 3</span>
+                </div>
+                <div class="question-title" id="question-text">أأي عبارة تمثل تعريف شبكة الحاسوب؟</div>
+                <div class="options-grid" id="options-container">
+                    <!-- Options injected by JS -->
+                </div>
+            </div>
+
+            <div class="quiz-controls">
+                <span style="color: var(--text-muted); font-size: 0.9rem;" id="xp-reward">+10 XP لكل إجابة صحيحة</span>
+                <div>
+                    <button class="btn-action" onclick="prevQuestion()">السابق</button>
+                    <button class="btn-action" onclick="nextQuestion()">التالي</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="panel-box">
+                <h3>لوحة التحكم</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+                    الزائر: <strong style="color: #fff;">طالب</strong><br>
+                    عدد الأسئلة: <strong style="color: #fff;" id="total-q-count">3</strong>
+                </p>
+            </div>
+
+            <div class="panel-box">
+                <h3>تنقل سريع بين الأسئلة</h3>
+                <div class="quick-nav" id="quick-nav">
+                    <!-- Nav items injected by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Concept Summary Section -->
+    <div class="summary-section">
+        <div class="summary-card">
+            <h4>🌐 شبكات الحاسوب وأنواعها</h4>
+            <p>شبكة الحاسوب هي اتصال جهازين أو أكثر لمشاركة الموارد. تصنف حسب الجغرافيا: LAN محلية، MAN متوسطة، WAN واسعة.</p>
+        </div>
+        <div class="summary-card">
+            <h4>🗺️ مخططات توصيل الشبكات</h4>
+            <p>تتضمن المخطط الخطي Bus، الحلقي Ring، والنجمي Star وهو الأكثر شيوعاً لوجود جهاز مركزي.</p>
+        </div>
+        <div class="summary-card">
+            <h4>🔒 OSI و TCP/IP</h4>
+            <p>نموذج OSI يتكون من 7 طبقات. نموذج TCP/IP يقسم الرسائل إلى حزم وينقلها ويعيد ترتيبها.</p>
+        </div>
+        <div class="summary-card">
+            <h4>☁️ الحوسبة السحابية</h4>
+            <p>تقديم خدمات حوسبة عند الطلب عبر الإنترنت. من ميزاتها: الوصول من أي مكان وسهولة الإعداد.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Quiz Questions Data
+    const questions = [
+        {
+            category: "شبكات الحاسوب",
+            question: "أي عبارة تمثل تعريف شبكة الحاسوب؟",
+            options: [
+                "حاسوب واحد يعمل دون اتصال",
+                "حواسيب متصلة لمشاركة البيانات والأجهزة",
+                "برنامج لحماية الجهاز فقط",
+                "وسيلة لتخزين الصور فقط"
+            ],
+            correct: 1
+        },
+        {
+            category: "مخططات التوصيل",
+            question: "ما هو مخطط التوصيل الأكثر شيوعاً والذي يعتمد على وجود جهاز مركزي؟",
+            options: [
+                "المخطط الخطي (Bus)",
+                "المخطط الحلقي (Ring)",
+                "المخطط النجمي (Star)",
+                "المخطط المتشابك (Mesh)"
+            ],
+            correct: 2
+        },
+        {
+            category: "البروتوكولات",
+            question: "كم عدد طبقات نموذج OSI للشبكات؟",
+            options: [
+                "4 طبقات",
+                "5 طبقات",
+                "7 طبقات",
+                "3 طبقات"
+            ],
+            correct: 2
+        }
+    ];
+
+    let currentIndex = 0;
+    let xp = 0;
+    let correctCount = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+
+    // Initialize App
+    function initQuiz() {
+        renderQuestion();
+        renderQuickNav();
+    }
+
+    function renderQuestion() {
+        const q = questions[currentIndex];
+        document.getElementById('category-tag').innerText = q.category;
+        document.getElementById('question-count').innerText = `سؤال ${currentIndex + 1} من ${questions.length}`;
+        document.getElementById('question-text').innerText = q.question;
+        document.getElementById('total-q-count').innerText = questions.length;
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            
+            // Check if already answered
+            if(userAnswers[currentIndex] !== null) {
+                if(idx === q.correct) btn.classList.add('correct');
+                if(userAnswers[currentIndex] === idx && idx !== q.correct) btn.classList.add('wrong');
+            } else {
+                btn.onclick = () => selectOption(idx);
+            }
+            
+            optionsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(index) {
+        if(userAnswers[currentIndex] !== null) return; // Prevent re-answering
+
+        userAnswers[currentIndex] = index;
+        const q = questions[currentIndex];
+
+        if(index === q.correct) {
+            xp += 10;
+            correctCount++;
+        }
+
+        updateStats();
+        renderQuestion();
+        renderQuickNav();
+    }
+
+    function updateStats() {
+        document.getElementById('xp-val').innerText = xp;
+        document.getElementById('correct-val').innerText = correctCount;
+        
+        const answeredCount = userAnswers.filter(a => a !== null).length;
+        const ratio = answeredCount > 0 ? Math.round((correctCount / questions.length) * 100) : 0;
+        document.getElementById('ratio-val').innerText = ratio + '%';
+        
+        document.getElementById('badge-val').innerText = Math.floor(xp / 20);
+    }
+
+    function renderQuickNav() {
+        const navContainer = document.getElementById('quick-nav');
+        navContainer.innerHTML = '';
+
+        questions.forEach((_, idx) => {
+            const div = document.createElement('div');
+            div.className = `nav-num ${currentIndex === idx ? 'active' : ''} ${userAnswers[idx] !== null ? 'answered' : ''}`;
+            div.innerText = idx + 1;
+            div.onclick = () => {
+                currentIndex = idx;
+                renderQuestion();
+                renderQuickNav();
+            };
+            navContainer.appendChild(div);
+        });
+    }
+
+    function nextQuestion() {
+        if (currentIndex < questions.length - 1) {
+            currentIndex++;
+            renderQuestion();
+            renderQuickNav();
+        }
+    }
+
+    function prevQuestion() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            renderQuestion();
+            renderQuickNav();
+        }
+    }
+
+    // Start App
+    initQuiz();
+</script>
+</body>
+</html>
